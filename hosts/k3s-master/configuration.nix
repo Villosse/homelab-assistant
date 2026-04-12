@@ -2,8 +2,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "k3s-master";
   networking.useDHCP = true;
