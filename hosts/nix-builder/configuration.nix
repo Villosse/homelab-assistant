@@ -30,6 +30,8 @@
     options = "--delete-older-than 30d";
   };
 
+  services.tailscale.enable = true;
+
   services.openssh = {
     enable = true;
     settings = {
