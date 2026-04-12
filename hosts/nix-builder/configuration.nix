@@ -12,7 +12,7 @@
     isSystemUser = true;
     group = "nix-builder";
     openssh.authorizedKeys.keyFiles = [
-      ./builders.keys
+      ./builder.keys
       ./root.keys
     ];
   };
