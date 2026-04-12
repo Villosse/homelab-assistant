@@ -11,7 +11,7 @@
   users.users.nix-builder = {
     isSystemUser = true;
     group = "nix-builder";
-    openssh.authorizedKeys.keysFiles = [
+    openssh.authorizedKeys.keyFiles = [
       ./builders.keys
       ./root.keys
     ];
@@ -50,7 +50,7 @@
 
   users.users.root = {
     initialPassword = "changeme";
-    openssh.authorizedKeys.keysFiles = [
+    openssh.authorizedKeys.keyFiles = [
       ./root.keys
     ];
   };
