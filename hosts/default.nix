@@ -1,3 +1,4 @@
+{ nixpkgs }:
 {
-  nix-builder = import ./nix-builder;
+  nix-builder = import ./nix-builder { inherit nixpkgs; };
 }
