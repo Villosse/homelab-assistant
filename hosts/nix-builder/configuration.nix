@@ -9,7 +9,7 @@
   networking.useDHCP = true;
 
   users.users.nix-builder = {
-    isSystemUser = true;
+    isNormalUser = true;
     group = "nix-builder";
     openssh.authorizedKeys.keyFiles = [
       ./builder.keys
