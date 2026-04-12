@@ -36,6 +36,19 @@
 
   nix.settings.trusted-users = [ "root" ];
 
+  networking.firewall = {
+    allowedTCPPorts = [
+      6443
+      30829
+      31589
+    ];
+    trustedInterfaces = [
+      "cni0"
+      "flannel.1"
+      "tailscale0"
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     kubectl
     k9s
