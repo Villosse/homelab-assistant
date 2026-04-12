@@ -35,7 +35,7 @@
     settings = {
       PasswordAuthentication = false;
       # Interdit SSH pour tout le monde par défaut
-      DenyUsers = [ "nix-builder" ];
+      # DenyUsers = [ "nix-builder" ];
       # Seul root peut se connecter normalement
       PermitRootLogin = "prohibit-password";
     };
