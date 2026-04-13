@@ -47,6 +47,10 @@
       "flannel.1"
       "tailscale0"
     ];
+    allowedUDPPorts = [
+      8472
+    ];
+
   };
 
   environment.systemPackages = with pkgs; [
