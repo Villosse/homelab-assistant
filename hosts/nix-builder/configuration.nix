@@ -1,4 +1,13 @@
 { config, pkgs, ... }:
+let
+  atticPushHook = pkgs.writeShellScript "attic-push-hook" ''
+    set -f # Disable globbing
+
+    export PATH="${pkgs.attic-client}/bin:$PATH"
+
+    exec attic push cluster-cache $OUT_PATHS
+  '';
+in
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -30,6 +39,10 @@
     options = "--delete-older-than 30d";
   };
 
+  nix.extraOptions = ''
+    post-build-hook = ${atticPushHook}
+  '';
+
   services.tailscale.enable = true;
 
   services.openssh = {
@@ -49,6 +62,8 @@
         PermitTTY no
     '';
   };
+
+  environment.systemPackages = with pkgs; [ attic-client ];
 
   users.users.root = {
     initialPassword = "changeme";
