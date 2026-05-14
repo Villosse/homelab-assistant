@@ -13,6 +13,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelParams = [
+    "radeon.si_support=0"
+    "amdgpu.si_support=1"
+    "radeon.cik_support=0"
+    "amdgpu.cik_support=1"
+    "amdgpu.dc=1"
+  ];
+  hardware.enableRedistributableFirmware = true;
+
   # networking.hostName = "nixos"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
@@ -33,32 +43,42 @@
   };
   services.getty.autologinUser = "dashboard";
 
-  programs.sway.enable = true;
+  # programs.sway.enable = true;
 
   environment.systemPackages = with pkgs; [
     firefox
     kitty
     vim
     helix
+    # wdisplays
+    # wlr-randr
+    xorg.xrandr
+    arandr
   ];
 
   environment.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
+    #  MOZ_ENABLE_WAYLAND = "1";
   };
 
-  environment.etc."sway/config".text = ''
-    set $mod Mod4
-    bindsym $mod+Return exec kitty
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "amdgpu" ];
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+        i3lock
+      ];
+    };
+  };
 
-    bar {
-        mode hide
-    }
-
-    exec swaymsg "output * dpms on"
-  '';
-
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "dashboard";
+  };
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
