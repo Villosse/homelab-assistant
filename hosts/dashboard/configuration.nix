@@ -38,6 +38,8 @@
     arandr
   ];
 
+  environment.variables.TERMINAL = "kitty";
+
   services.xserver = {
     enable = true;
     videoDrivers = [ "amdgpu" ];
