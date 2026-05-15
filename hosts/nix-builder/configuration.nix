@@ -9,10 +9,11 @@ let
   '';
 in
 {
-  imports = [ ./hardware-configuration.nix ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/base.nix
+    ../../modules/ssh.nix
+  ];
 
   networking.hostName = "nix-builder";
   networking.useDHCP = true;
@@ -22,7 +23,7 @@ in
     group = "nix-builder";
     openssh.authorizedKeys.keyFiles = [
       ./builder.keys
-      ./root.keys
+      ../../modules/root.keys
     ];
   };
   users.groups.nix-builder = { };
@@ -43,34 +44,15 @@ in
     post-build-hook = ${atticPushHook}
   '';
 
-  services.tailscale.enable = true;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      # Interdit SSH pour tout le monde par défaut
-      # DenyUsers = [ "nix-builder" ];
-      # Seul root peut se connecter normalement
-      PermitRootLogin = "prohibit-password";
-    };
-    extraConfig = ''
-      Match User nix-builder
-        ForceCommand ${pkgs.nix}/bin/nix-daemon --stdio
-        AllowTcpForwarding no
-        AllowAgentForwarding no
-        PermitTTY no
-    '';
-  };
+  services.openssh.extraConfig = ''
+    Match User nix-builder
+      ForceCommand ${pkgs.nix}/bin/nix-daemon --stdio
+      AllowTcpForwarding no
+      AllowAgentForwarding no
+      PermitTTY no
+  '';
 
   environment.systemPackages = with pkgs; [ attic-client ];
-
-  users.users.root = {
-    initialPassword = "changeme";
-    openssh.authorizedKeys.keyFiles = [
-      ./root.keys
-    ];
-  };
 
   system.stateVersion = "24.11";
 }

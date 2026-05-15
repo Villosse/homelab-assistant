@@ -1,12 +1,9 @@
 { config, pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/base.nix
+    ../../modules/ssh.nix
   ];
 
   networking.hostName = "k3s-master";
@@ -16,25 +13,8 @@
   services.k3s = {
     enable = true;
     role = "server";
-    extraFlags = "--disable traefik --write-kubeconfig-mode 644"; # on gérera l'ingress nous-mêmes
+    extraFlags = "--disable traefik --write-kubeconfig-mode 644";
   };
-
-  services.tailscale.enable = true;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "prohibit-password";
-    };
-  };
-
-  users.users.root = {
-    initialPassword = "changeme";
-    openssh.authorizedKeys.keyFiles = [ ./root.keys ];
-  };
-
-  nix.settings.trusted-users = [ "root" ];
 
   networking.firewall = {
     allowedTCPPorts = [
@@ -45,12 +25,10 @@
     trustedInterfaces = [
       "cni0"
       "flannel.1"
-      "tailscale0"
     ];
     allowedUDPPorts = [
       8472
     ];
-
   };
 
   environment.systemPackages = with pkgs; [
