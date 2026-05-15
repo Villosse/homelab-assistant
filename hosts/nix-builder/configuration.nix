@@ -5,7 +5,7 @@ let
 
     export PATH="${pkgs.attic-client}/bin:$PATH"
 
-    exec attic push cluster-cache $OUT_PATHS
+    exec attic push yaka-cache $OUT_PATHS
   '';
 in
 {
