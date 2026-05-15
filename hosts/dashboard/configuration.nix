@@ -1,11 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/ssh.nix
-  ];
-
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelParams = [
     "radeon.si_support=0"
