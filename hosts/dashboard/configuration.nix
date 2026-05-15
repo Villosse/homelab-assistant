@@ -35,6 +35,7 @@
     vim
     helix
     xorg.xrandr
+    xorg.xset
     arandr
   ];
 
@@ -43,6 +44,11 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "amdgpu" ];
+    displayManager.sessionCommands = ''
+      xset -dpms
+      xset s off
+      xset s noblank
+    '';
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
