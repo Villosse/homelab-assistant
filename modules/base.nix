@@ -7,4 +7,6 @@
     "nix-command"
     "flakes"
   ];
+
+  services.qemuGuest.enable = true;
 }

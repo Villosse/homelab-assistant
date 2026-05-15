@@ -30,6 +30,11 @@
 
   services.getty.autologinUser = "dashboard";
 
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "dashboard";
+  };
+
   environment.systemPackages = with pkgs; [
     firefox
     kitty
@@ -51,13 +56,6 @@
       ];
     };
   };
-
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "dashboard";
-  };
-
-  services.qemuGuest.enable = true;
 
   system.stateVersion = "25.11";
 }
