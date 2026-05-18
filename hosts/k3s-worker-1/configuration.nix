@@ -1,11 +1,5 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/ssh.nix
-  ];
-
   networking.hostName = "k3s-worker";
   networking.useDHCP = true;
 
@@ -31,5 +25,5 @@
     ];
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 }

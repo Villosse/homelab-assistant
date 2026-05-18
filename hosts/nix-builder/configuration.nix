@@ -5,16 +5,10 @@ let
 
     export PATH="${pkgs.attic-client}/bin:$PATH"
 
-    exec attic push cluster-cache $OUT_PATHS
+    exec attic push yaka-cache $OUT_PATHS
   '';
 in
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/ssh.nix
-  ];
-
   networking.hostName = "nix-builder";
   networking.useDHCP = true;
 
@@ -54,5 +48,5 @@ in
 
   environment.systemPackages = with pkgs; [ attic-client ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 }

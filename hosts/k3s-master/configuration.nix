@@ -1,11 +1,5 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/ssh.nix
-  ];
-
   networking.hostName = "k3s-master";
   networking.useDHCP = true;
   environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
@@ -36,5 +30,5 @@
     k9s
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 }
