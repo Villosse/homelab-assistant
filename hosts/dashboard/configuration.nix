@@ -44,6 +44,15 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "amdgpu" ];
+    serverFlagsSection = ''
+      Option "BlankTime" "0"
+      Option "StandbyTime" "0"
+      Option "SuspendTime" "0"
+      Option "OffTime" "0"
+    '';
+    monitorSection = ''
+      Option "DPMS" "false"
+    '';
     displayManager.sessionCommands = ''
       xset -dpms
       xset s off

@@ -1,1 +1,2 @@
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8HltDr9uNRUNIPLMozE2iqb5rxRbbPkMUlhzjMpcBp openpgp:0x35FADF4A
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBrrOoac4dcxbQor6vloehXf+rLM0e/Cm9JzRZdNtl0V nix-daemon-builder
