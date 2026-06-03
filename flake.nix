@@ -2,21 +2,23 @@
   description = "Homelab infrastructure";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 
   outputs =
     { self, nixpkgs }:
     let
-      mkHost = host: nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./modules/base.nix
-          ./modules/ssh.nix
-          ./hosts/${host}/hardware-configuration.nix
-          ./hosts/${host}/configuration.nix
-        ];
-      };
+      mkHost =
+        host:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./modules/base.nix
+            ./modules/ssh.nix
+            ./hosts/${host}/hardware-configuration.nix
+            ./hosts/${host}/configuration.nix
+          ];
+        };
     in
     {
       nixosConfigurations = {
