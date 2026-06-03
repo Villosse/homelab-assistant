@@ -1,12 +1,5 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
-  atticPushHook = pkgs.writeShellScript "attic-push-hook" ''
-    set -f # Disable globbing
-
-    export PATH="${pkgs.attic-client}/bin:$PATH"
-
-    exec attic push yaka-cache $OUT_PATHS
-  '';
 in
 {
   networking.hostName = "nix-builder";
@@ -34,10 +27,6 @@ in
     options = "--delete-older-than 30d";
   };
 
-  nix.extraOptions = ''
-    post-build-hook = ${atticPushHook}
-  '';
-
   services.openssh.extraConfig = ''
     Match User nix-builder
       ForceCommand ${pkgs.nix}/bin/nix-daemon --stdio
@@ -47,6 +36,21 @@ in
   '';
 
   environment.systemPackages = with pkgs; [ attic-client ];
+
+  # Asynchronously push to the cache, without using a synchronous post-build-hook
+  systemd.services.attic-watch-store = {
+    description = "Attic watch-store daemon";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.attic-client}/bin/attic watch-store yaka-cache";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      # Ensure this runs as a user that has access to the Nix store and is logged into Attic
+      User = "root";
+    };
+  };
 
   system.stateVersion = "25.11";
 }
