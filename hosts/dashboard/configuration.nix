@@ -34,8 +34,8 @@
     kitty
     vim
     helix
-    xorg.xrandr
-    xorg.xset
+    xrandr
+    xset
     arandr
   ];
 
