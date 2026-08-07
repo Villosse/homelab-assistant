@@ -1,2 +1,3 @@
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8HltDr9uNRUNIPLMozE2iqb5rxRbbPkMUlhzjMpcBp openpgp:0x35FADF4A
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBrrOoac4dcxbQor6vloehXf+rLM0e/Cm9JzRZdNtl0V nix-daemon-builder
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP9xi4CCcmp3FXv2S96eT/T5eBHJI4kW1YrXhr02eqmJ godric@MacBook-Pro-de-Godric.local
