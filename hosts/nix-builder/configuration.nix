@@ -44,11 +44,17 @@ in
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
-      ExecStart = "${pkgs.attic-client}/bin/attic watch-store yaka-cache";
+      ExecStart = "${pkgs.attic-client}/bin/attic watch-store --jobs 2 yaka-cache";
       Restart = "on-failure";
       RestartSec = "5s";
       # Ensure this runs as a user that has access to the Nix store and is logged into Attic
       User = "root";
+
+      MemoryHigh = "2G";
+      MemoryMax = "3G";
+
+      Nice = 10;
+      IOSchedulingClass = "idle";
     };
   };
 
