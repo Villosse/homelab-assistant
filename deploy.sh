@@ -10,6 +10,7 @@ declare -A HOST_IPS=(
   [k3s-master]="10.201.3.138"
   [nix-cache]="10.201.3.150"
   [dashboard]="10.201.3.147"
+  [nix-assistant]="10.201.3.152"
 )
 
 # Defaults

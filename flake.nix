@@ -26,6 +26,7 @@
         k3s-master = mkHost "k3s-master";
         k3s-worker-1 = mkHost "k3s-worker-1";
         dashboard = mkHost "dashboard";
+        nix-assistant = mkHost "nix-assistant";
       };
     };
 }
