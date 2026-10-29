@@ -35,6 +35,8 @@ in
       PermitTTY no
   '';
 
+  services.tailscale.enable = true;
+
   environment.systemPackages = with pkgs; [ attic-client ];
 
   # Asynchronously push to the cache, without using a synchronous post-build-hook
