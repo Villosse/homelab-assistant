@@ -12,6 +12,10 @@ in
       ../../modules/root.keys
       ./assistants.keys
     ];
+    extraGroups = [
+      "docker"
+      "wheel"
+    ];
   };
 
   nix.settings = {
@@ -31,6 +35,10 @@ in
     helix
     git
   ];
+
+  virtualisation.docker = {
+    enable = true;
+  };
 
   system.stateVersion = "25.11";
 }
