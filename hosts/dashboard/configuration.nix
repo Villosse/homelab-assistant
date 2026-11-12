@@ -12,6 +12,10 @@
 
   networking.hostName = "dashboard";
   networking.networkmanager.enable = true;
+  networking.firewall.extraCommands = ''
+    # fxled
+    iptables -A INPUT -p tcp --dport 8888 -m comment --comment "fxled" -j ACCEPT
+  '';
   time.timeZone = "Europe/Paris";
 
   users.users.dashboard = {
@@ -19,6 +23,9 @@
     extraGroups = [
       "video"
       "input"
+    ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGxaMAEHzRS8L757ktuJHHwdSqTwmFn/lHLsR0vL6qFL stor@gram"
     ];
   };
 
@@ -37,7 +44,17 @@
     xrandr
     xset
     arandr
+    pavucontrol
+    ledfx
+    alsa-utils
   ];
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
 
   environment.variables.TERMINAL = "kitty";
 
