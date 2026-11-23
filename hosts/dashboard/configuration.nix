@@ -29,6 +29,10 @@
     ];
   };
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBzvWN6JI7NJdgGyoygFYfVcrjx2N22NVukJ523jLtM gabin1.cadic"
+  ];
+
   services.getty.autologinUser = "dashboard";
 
   services.displayManager.autoLogin = {
